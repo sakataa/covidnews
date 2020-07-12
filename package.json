@@ -1,0 +1,40 @@
+{
+  "name": "covidnews",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server",
+    "build-dev": "node node_modules/webpack/bin/webpack.js --config webpack.config.js --watch",
+    "build-pro": "node node_modules/webpack/bin/webpack.js --config webpack.config.js --env=production"
+  },
+  "keywords": [
+    "pandemic",
+    "covid-19",
+    "corona virus"
+  ],
+  "author": "tien.tran",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-transform-runtime": "^7.10.4",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-react": "^7.9.1",
+    "babel-loader": "^8.1.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "html-webpack-plugin": "^4.0.1",
+    "webpack": "^4.42.0",
+    "webpack-bundle-analyzer": "^3.6.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "reactstrap": "^8.4.1"
+  }
+}
