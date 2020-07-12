@@ -26,14 +26,13 @@ const DEFAULT_TIMER = 50;
 const AppContainer = () => {
   const [overviewData, setOverviewData] = useState(null);
   const [dataByCountry, setDataByCountry] = useState([]);
-  const [filteredText, setFilteredText] = useState('');
   const [refreshTime, setRefreshTime] = useState(DEFAULT_TIMER);
   const [importantItem, setImportantItem] = useState(
     Object.assign(defaultImportantItem)
   );
   const [lastUpdatedTime, setLastUpdatedTime] = useState(new Date());
   const [continents, setContinents] = useState([]);
-  const [selectedContinent, setSelectedContinent] = useState('');
+  const [filters, setFilters] = useState({ countryName: '', continent: '' });
 
   const countryRef = useRef(importantItem.country);
 
@@ -90,27 +89,23 @@ const AppContainer = () => {
     return () => window.clearTimeout(timeoutId.current);
   }, [refreshTime]);
 
-  const handleChangeSearch = (searchedText, continent) => {
-    if (filteredText !== searchedText) {
-      setFilteredText(searchedText);
-    }
-
-    if (selectedContinent !== continent) {
-      setSelectedContinent(continent);
-    }
+  const handleChangeSearch = (activatingFilter) => {
+    const { name, value } = activatingFilter;
+    setFilters({ ...filters, [name]: value });
   };
 
   const handleChangeTimer = (selectedTime) => {
     setRefreshTime(selectedTime);
   };
 
+  const { countryName, continent } = filters;
+  const searchedKey = countryName.toLowerCase();
   const displayDataList =
-    filteredText || selectedContinent
+    countryName || continent
       ? dataByCountry.filter((item) => {
           return (
-            item.country.toLowerCase().indexOf(filteredText.toLowerCase()) !==
-              -1 &&
-            (selectedContinent === '' || item.continent === selectedContinent)
+            item.country.toLowerCase().indexOf(searchedKey) !== -1 &&
+            (continent === '' || item.continent === continent)
           );
         })
       : dataByCountry;
@@ -125,9 +120,9 @@ const AppContainer = () => {
         lastUpdatedTime={lastUpdatedTime}
       />
       <Filter
+        filters={filters}
         onSearchChange={handleChangeSearch}
         continents={continents}
-        selectedContinent={selectedContinent}
       />
       <CaseByCountryList dataByCountry={displayDataList} />
     </div>

@@ -5,33 +5,28 @@ import { getText } from '../../resources/resourceManager';
 import { LanguageContext } from '../../utils/context';
 
 const Filter = (props) => {
-  const { onSearchChange, continents, selectedContinent } = props;
-  const [searchedText, setSearchedText] = useState('');
+  const { onSearchChange, continents, filters } = props;
   const langKey = useContext(LanguageContext);
 
   const onChange = (event) => {
-    const { name, value } = event.target;
-
-    if (name === 'search') {
-      setSearchedText(value);
-    }
-
-    onSearchChange && onSearchChange(value, selectedContinent);
+    onSearchChange && onSearchChange(event.target);
   };
+
+  const { countryName, continent } = filters;
 
   return (
     <Form tag="div">
       <FormGroup row>
-        <Label for="continentSelect" sm={5} md={3} lg={2}>
+        <Label for="continent" sm={5} md={3} lg={2}>
           {getText(langKey, 'continent')}
         </Label>
         <Col sm={10}>
           <Input
             type="select"
             name="continent"
-            id="continentSelect"
-            value={selectedContinent}
-            onChange={(e) => onSearchChange(searchedText, e.target.value)}>
+            id="continent"
+            value={continent}
+            onChange={onChange}>
             {continents.map((x) => {
               return (
                 <option key={x} value={x}>
@@ -44,15 +39,15 @@ const Filter = (props) => {
       </FormGroup>
 
       <FormGroup row>
-        <Label for="search" sm={5} md={3} lg={2}>
+        <Label for="countryName" sm={5} md={3} lg={2}>
           {getText(langKey, 'SearchByCountry')}
         </Label>
         <Col sm={7} md={9} lg={10}>
           <Input
             type="text"
-            name="search"
-            id="search"
-            value={searchedText}
+            name="countryName"
+            id="countryName"
+            value={countryName}
             onChange={onChange}
           />
         </Col>
@@ -63,6 +58,11 @@ const Filter = (props) => {
 
 Filter.propTypes = {
   onSearchChange: PropTypes.func,
+  continents: PropTypes.arrayOf(PropTypes.string),
+  filters: PropTypes.shape({
+    countryName: PropTypes.string,
+    continent: PropTypes.string,
+  }),
 };
 
 export default Filter;
