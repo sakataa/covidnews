@@ -32,6 +32,8 @@ const AppContainer = () => {
     Object.assign(defaultImportantItem)
   );
   const [lastUpdatedTime, setLastUpdatedTime] = useState(new Date());
+  const [continents, setContinents] = useState([]);
+  const [selectedContinent, setSelectedContinent] = useState('');
 
   const countryRef = useRef(importantItem.country);
 
@@ -58,6 +60,12 @@ const AppContainer = () => {
       (x) =>
         x.countryInfo && x.countryInfo.iso2 === importantItem.countryInfo.iso2
     );
+    const continentsSet = new Set([
+      '',
+      ...contries.data.map((x) => x.continent),
+    ]);
+    console.log(continentsSet);
+    setContinents([...continentsSet]);
     if (myFavoriteCountry && myFavoriteCountry.country !== countryRef.current) {
       countryRef.current = myFavoriteCountry.country;
       setImportantItem(Object.assign({}, importantItem, myFavoriteCountry));
@@ -82,21 +90,30 @@ const AppContainer = () => {
     return () => window.clearTimeout(timeoutId.current);
   }, [refreshTime]);
 
-  const handleChangeSearch = (searchedText) => {
-    setFilteredText(searchedText);
+  const handleChangeSearch = (searchedText, continent) => {
+    if (filteredText !== searchedText) {
+      setFilteredText(searchedText);
+    }
+
+    if (selectedContinent !== continent) {
+      setSelectedContinent(continent);
+    }
   };
 
   const handleChangeTimer = (selectedTime) => {
     setRefreshTime(selectedTime);
   };
 
-  const displayDataList = filteredText
-    ? dataByCountry.filter((item) => {
-        return (
-          item.country.toLowerCase().indexOf(filteredText.toLowerCase()) !== -1
-        );
-      })
-    : dataByCountry;
+  const displayDataList =
+    filteredText || selectedContinent
+      ? dataByCountry.filter((item) => {
+          return (
+            item.country.toLowerCase().indexOf(filteredText.toLowerCase()) !==
+              -1 &&
+            (selectedContinent === '' || item.continent === selectedContinent)
+          );
+        })
+      : dataByCountry;
 
   return (
     <div>
@@ -107,7 +124,11 @@ const AppContainer = () => {
         selectedTime={refreshTime}
         lastUpdatedTime={lastUpdatedTime}
       />
-      <Filter onSearchChange={handleChangeSearch} />
+      <Filter
+        onSearchChange={handleChangeSearch}
+        continents={continents}
+        selectedContinent={selectedContinent}
+      />
       <CaseByCountryList dataByCountry={displayDataList} />
     </div>
   );

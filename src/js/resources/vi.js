@@ -1,22 +1,30 @@
-((lang) => {  
-    lang['vi'] = {
-    'language': 'Ngôn ngữ',
-    'vietnamese': 'Tiếng Việt',
-    'english': 'English',
-    'pageHeading': 'COVID-19 SỰ BÙNG PHÁT CỦA VIRUS CORONA',
-    'refreshAfter': 'Làm mới sau(giây)',
-    'coronavirusCases': 'Ca Nhiễm',
-    'recovered': 'Phục Hồi',
-    'deaths': 'Tử Vong',
-    'SearchByCountry': 'Tìm kiếm theo quốc gia',
-    'totalCases': 'Tổng số ca',
-    'todayCases': 'Số ca nhiễm hôm nay',
-    'todayDeaths': 'Số ca tử vong hôm nay',
-    'recovered': 'Phục hồi',
-    'Vietnam': 'Việt Nam',
-    'global': 'Toàn Cầu',
-    'timeInfo': 'Dữ liệu dựa trên múi giờ UTC, Cập nhật lúc',
-    'active': 'Số ca đang điều trị',
-    'critical': 'Số ca bệnh nặng'
-}
-})(window._lang = window._lang || {})
+((lang) => {
+  lang['vi'] = {
+    language: 'Ngôn ngữ',
+    vietnamese: 'Tiếng Việt',
+    english: 'English',
+    pageHeading: 'COVID-19 SỰ BÙNG PHÁT CỦA VIRUS CORONA',
+    refreshAfter: 'Làm mới sau(giây)',
+    coronavirusCases: 'Ca Nhiễm',
+    recovered: 'Phục Hồi',
+    deaths: 'Tử Vong',
+    SearchByCountry: 'Tìm kiếm theo quốc gia',
+    totalCases: 'Tổng số ca',
+    todayCases: 'Số ca nhiễm hôm nay',
+    todayDeaths: 'Số ca tử vong hôm nay',
+    recovered: 'Phục hồi',
+    Vietnam: 'Việt Nam',
+    global: 'Toàn Cầu',
+    timeInfo: 'Dữ liệu dựa trên múi giờ UTC, Cập nhật lúc',
+    active: 'Số ca đang điều trị',
+    critical: 'Số ca bệnh nặng',
+    continent: 'Lục địa',
+    all: 'Tất cả',
+    'North America': 'Bắc Mỹ',
+    'South America': 'Nam Mỹ',
+    Asia: 'Châu Á',
+    Europe: 'Châu Âu',
+    Africa: 'Châu Phi',
+    'Australia/Oceania': 'Úc/ Châu Đại Dương',
+  };
+})((window._lang = window._lang || {}));
